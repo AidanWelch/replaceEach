@@ -1,0 +1,32 @@
+{
+  "name": "replaceeach",
+  "version": "0.1.0",
+  "description": "A replaceEach function allowing efficient replacing of multiple searchValues in one string and/or  multiple replaceValues.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AidanWelch/replaceEach.git"
+  },
+  "keywords": [
+    "replace",
+    "replaceEach",
+    "multiple",
+    "replaceEachAll",
+    "replaceAllEach"
+  ],
+  "author": "Aidan Welch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AidanWelch/replaceEach/issues"
+  },
+  "homepage": "https://github.com/AidanWelch/replaceEach#readme",
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
+}
