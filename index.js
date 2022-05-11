@@ -1,4 +1,4 @@
-import replaceEach from "./lib/replaceEach";
-import replaceEachAll from "./lib/replaceEachAll";
+import replaceEach from "./lib/replaceEach.js";
+import replaceEachAll from "./lib/replaceEachAll.js";
 
 export { replaceEach, replaceEachAll };
