@@ -12,7 +12,7 @@ describe("replaceEachAll", () => {
 		it("should replace seperated character matches", () => {
 			const searchValue = " ";
 			const replaceValue = "_";
-			assert.strictEqual( replaceEachAll(lorem, searchValue, replaceValue), lorem.replaceAll(searchValue, replaceValue));
+			assert.strictEqual(replaceEachAll(lorem, searchValue, replaceValue), lorem.replaceAll(searchValue, replaceValue));
 		});
 
 		it("should replace repeating character matches", () => {
