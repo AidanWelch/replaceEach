@@ -4,10 +4,11 @@ import { replaceEachAll } from "../index.js";
 
 describe("replaceEachAll", () => {
 
-	const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-	const repeatingLetters = "aaa";
+
 
 	describe("match replaceAll behavior with single string inputs", () => {
+		const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+		const repeatingLetters = "aaa";
 
 		it("should replace seperated character matches", () => {
 			const searchValue = " ";
