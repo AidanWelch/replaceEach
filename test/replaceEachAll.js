@@ -76,7 +76,17 @@ describe("replaceEachAll", () => {
 
 	describe("behavior with function replaceValues", () => {
 		const string = "aaaaaaaabbbbbbb";
-		it("should match behaviour of sequential replaceAlls", () => {
+
+		it("should match behavior of replaceAll with string input", () => {
+			const searchValues = "ab";
+			function replaceFunction (match, offset, string) {
+				return string;
+			};
+			const result = string.replaceAll(searchValues, replaceFunction)
+			assert.strictEqual(replaceEachAll(string, searchValues, replaceFunction), result);
+		});
+
+		it("should match behaviour of sequential replaceAlls with match input", () => {
 			const searchValues = ["ab", "a", "b"];
 			function replaceFunction (match, offset, string) {
 				return match.length;
@@ -84,5 +94,88 @@ describe("replaceEachAll", () => {
 			const result = string.replaceAll(searchValues[0], replaceFunction).replaceAll(searchValues[1], replaceFunction).replaceAll(searchValues[2], replaceFunction);
 			assert.strictEqual(replaceEachAll(string, searchValues, replaceFunction), result);
 		});
+
+		it("should match behavior of sequential replaceAlls with offset when it is not altered in replace", () => {
+			const searchValues = ["a", "b"];
+			function replaceFunction (match, offset, string) {
+				return offset;
+			};
+			const result = string.replaceAll(searchValues[0], replaceFunction).replaceAll(searchValues[1], replaceFunction).replaceAll(searchValues[2], replaceFunction);
+			assert.strictEqual(replaceEachAll(string, searchValues, replaceFunction), result);
+		});
+
+		it("should not match behavior of sequential replaceAlls with offset when it is altered", () => {
+			const searchValues = ["ab", "a", "b"];
+			function replaceFunction (match, offset, string) {
+				return " "+ match.toUpperCase() + offset + " ";
+			};
+			const result = string.replaceAll(searchValues[0], replaceFunction).replaceAll(searchValues[1], replaceFunction).replaceAll(searchValues[2], replaceFunction);
+			assert.notStrictEqual(replaceEachAll(string, searchValues, replaceFunction), result);
+		})
+	});
+
+	describe("behavior with array and function searchValues", () => {
+		const string = "0123456789";
+		it("should match behavior between array of characters and string", () => {
+			const searchString = "4567";
+			const replaceValue = "A";
+			assert.strictEqual(replaceEachAll(string, [searchString.split("")], replaceValue), replaceEachAll(string, searchString, replaceValue))
+		});
+
+		it("should match as expected with function searchValue", () => {
+			const searchFunction = function (i, c, matcher) {
+				if (i === parseInt(c)) {
+					return "complete";
+				}
+				return false;
+			}
+			const replaceValue = "A";
+			const result = "AAAAAAAAAA"
+			assert.strictEqual(replaceEachAll(string, searchFunction, replaceValue), result)
+		});
+
+		it("should match as expected with arraySearch functions", () => {
+			const searchFunctions = [
+				[
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return pc === 0 || pc === 5;
+					},
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return pc === 1 || pc === 6;
+					},
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return pc === 2 || pc === 7;
+					}
+				]
+			];
+			const replaceValue = " ABCD ";
+			const result = " ABCD 34 ABCD 89";
+			assert.strictEqual(replaceEachAll(string, searchFunctions, replaceValue), result);
+		});
+
+		it("should not match with false arraySearch functions", () => {
+			const searchFunctions = [
+				[
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return pc === 0 || pc === 5;
+					},
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return pc === 1 || pc === 6;
+					},
+					function (i, c, matcher) {
+						const pc = parseInt(c);
+						return false;
+					}
+				]
+			];
+			const replaceValue = " ABCD ";
+			assert.strictEqual(replaceEachAll(string, searchFunctions, replaceValue), string);
+		});
+
 	});
 });
