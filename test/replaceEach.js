@@ -70,6 +70,17 @@ describe("replaceEach", () => {
 			const replaceValues = ["x", "y"];
 			assert.strictEqual(replaceEach(string, searchValues, replaceValues), "yd");
 		});
+
+		it("should not have mysterious repeat match errors", () => {
+			const string = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abc !\"#$%&'()*+,-./0123456789:;<=>?";
+			const searchValues = ["EE", "66", ",,", "#", "66", " ", "TTT", "!"];
+			const replaceValue = "REPLACE";
+			let result = string;
+			for (let searchValue of searchValues) {
+				result = result.replace(searchValue, replaceValue);
+			}
+			assert.strictEqual(replaceEach(repeatingLetters, searchValues, replaceValue), result);
+		});
 	});
 
 	describe("behavior with function replaceValues", () => {
