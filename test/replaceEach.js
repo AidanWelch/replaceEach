@@ -79,7 +79,7 @@ describe("replaceEach", () => {
 			for (let searchValue of searchValues) {
 				result = result.replace(searchValue, replaceValue);
 			}
-			assert.strictEqual(replaceEach(repeatingLetters, searchValues, replaceValue), result);
+			assert.strictEqual(replaceEach(string, searchValues, replaceValue), result);
 		});
 	});
 
