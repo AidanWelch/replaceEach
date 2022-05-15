@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/AidanWelch/replaceEach#readme",
   "devDependencies": {
+    "chart.js": "^3.7.1",
+    "chartjs-node-canvas": "^4.1.6",
     "mocha": "^10.0.0"
   }
 }
