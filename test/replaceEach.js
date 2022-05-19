@@ -71,7 +71,7 @@ describe("replaceEach", () => {
 			assert.strictEqual(replaceEach(string, searchValues, replaceValues), "yd");
 		});
 
-		it("should not have mysterious repeat match errors", () => {
+		it("should not duplicate unmatched characters on cancelled match", () => {
 			const string = "0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abc !\"#$%&'()*+,-./0123456789:;<=>?";
 			const searchValues = ["EE", "66", ",,", "#", "66", " ", "TTT", "!"];
 			const replaceValue = "REPLACE";
