@@ -1,5 +1,5 @@
 import { replaceEachAll } from "../index.js";
-import { addChartLabels, addChartData, saveChart } from "./chartHandler.js";
+import ChartHandler from "./chartHandler.js";
 
 const characters = []
 for (let i = 32; i < 100; i++) {
@@ -12,28 +12,29 @@ function testFunction(options) {
 	maxParamIteration = options.maxSearchCount || maxParamIteration;
 	maxParamIteration = options.maxStringLength || maxParamIteration;
 	maxParamIteration = options.maxReplaceLength || maxParamIteration;
+	maxParamIteration = options.maxSearchLength || maxParamIteration;
 
 	const changeLabels = [];
 	const changeRA = [];
 	const changeREA = [];
-	for (let paramIterator = 0; paramIterator < maxParamIteration; paramIterator += options.step || 10) {
+	for (let paramIterator = 1; paramIterator <= maxParamIteration + 1; paramIterator += options.step || 10) {
 		changeLabels.push(paramIterator);
 
-		const stringLength = options.maxStringLength ? paramIterator : 10000;
+		const stringLength = options.maxStringLength ? paramIterator : 20001;
 		const searchCount = options.maxSearchCount ? paramIterator : 10;
 		const replaceLength = options.maxReplaceLength ? paramIterator : 1;
+		const searchLength = options.maxSearchLength ? paramIterator : 1;
 
 		let string = "";
 		for (let i = 0; i < stringLength; i++) {
-			string += characters[ i % characters.length];
+			string += characters[Math.floor(Math.random() * characters.length)];
 		}
 		
 		const searchValues = [];
 		for (let i = 0; i < searchCount; i++) {
-			const random = Math.random();
 			let searchValue = "";
-			for (let s = 0; s < Math.ceil(random * 3); s++) {
-				searchValue += characters[Math.floor(random * characters.length)];
+			for (let j = 0; j < searchLength; j++) {
+				searchValue += characters[Math.floor(Math.random() * characters.length)];
 			}
 			searchValues.push(searchValue);
 		}
@@ -53,7 +54,7 @@ function testFunction(options) {
 		treplaceEachAll = process.hrtime(treplaceEachAll);
 		treplaceEachAll = treplaceEachAll[0] * 1000 + treplaceEachAll[1] / 1000000;
 		
-		if (resReplaceAll !== resReplaceEachAll) {
+		if (resReplaceAll !== resReplaceEachAll && options.checkError !== false) {
 			console.error("Results don't match!");
 			console.error('Original:       "' + string + '"');
 			console.error('replaceAll:     "' + resReplaceAll + '"');
@@ -69,7 +70,7 @@ function testFunction(options) {
 function avgTest (options) {
 	let lastChangeLabels = [];
 	const [avgChangeRA, avgChangeREA] = [[], []];
-	const iterations = 10;
+	const iterations = 500;
 	for(let i = 0; i < iterations; i++) {
 		console.log(i + "/" + iterations);
 		const [changeLabels, changeRA, changeREA] = testFunction(options);
@@ -93,8 +94,32 @@ function avgTest (options) {
 	return [lastChangeLabels, avgChangeRA, avgChangeREA];
 }
 
-const [strChangeLabels, strChangeRA, strChangeREA] = avgTest({maxSearchCount: 1000, step: 100});
-addChartLabels(strChangeLabels);
-addChartData("String Length replaceAll", strChangeRA);
-addChartData("String Length replaceEachAll", strChangeREA);
-saveChart("./speedtest/replaceEachAll.png")
+const [strChangeLabels, strChangeRA, strChangeREA] = avgTest({maxStringLength: 10000, step: 1000});
+const strChart = new ChartHandler(strChangeLabels);
+strChart.addChartData("String Length replaceAll", strChangeRA);
+strChart.addChartData("String Length replaceEachAll", strChangeREA);
+strChart.saveChart("./speedtest/replaceEachAllStringLength.png");
+
+const [repChangeLabels, repChangeRA, repChangeREA] = avgTest({maxReplaceLength: 1000, step: 100});
+const repChart = new ChartHandler(repChangeLabels);
+repChart.addChartData("Length of Replace Value replaceAll", repChangeRA);
+repChart.addChartData("Length of Replace Value replaceEachAll", repChangeREA);
+repChart.saveChart("./speedtest/replaceEachAllReplaceLength.png");
+
+const [srcChangeLabels, srcChangeRA, srcChangeREA] = avgTest({maxSearchCount: 10000, step: 1000});
+const srcChart = new ChartHandler(srcChangeLabels);
+srcChart.addChartData("# of Search Values replaceAll", srcChangeRA);
+srcChart.addChartData("# of Search Values replaceEachAll", srcChangeREA);
+srcChart.saveChart("./speedtest/replaceEachAllSearchCount.png");
+
+const [srlChangeLabels, srlChangeRA, srlChangeREA] = avgTest({maxSearchLength: 20000, step: 2000, checkError: false});
+const srlChart = new ChartHandler(srlChangeLabels);
+srlChart.addChartData("Length of Search Values replaceAll", srlChangeRA);
+srlChart.addChartData("Length of Search Values replaceEachAll", srlChangeREA);
+srlChart.saveChart("./speedtest/replaceEachAllSearchLength.png");
+
+const [bsrChangeLabels, bsrChangeRA, bsrChangeREA] = avgTest({maxSearchCount: 100, maxSearchLength: 100, step: 10, checkError: false});
+const bsrChart = new ChartHandler(bsrChangeLabels);
+bsrChart.addChartData("# of Search Values and Length replaceAll", bsrChangeRA);
+bsrChart.addChartData("# of Search Values and Length replaceEachAll", bsrChangeREA);
+bsrChart.saveChart("./speedtest/replaceEachAllBothSearchLengthCount.png");
