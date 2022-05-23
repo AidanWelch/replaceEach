@@ -94,11 +94,11 @@ function avgTest (options) {
 	return [lastChangeLabels, avgChangeR, avgChangeRE];
 }
 
-/* const [strChangeLabels, strChangeR, strChangeRE] = avgTest({maxStringLength: 10000, step: 1000});
+const [strChangeLabels, strChangeR, strChangeRE] = avgTest({maxStringLength: 10000, step: 1000});
 const strChart = new ChartHandler(strChangeLabels);
 strChart.addChartData("String Length replace", strChangeR);
 strChart.addChartData("String Length replaceEach", strChangeRE);
-strChart.saveChart("./speedtest/replaceEachStringLength.png"); */
+strChart.saveChart("./speedtest/replaceEachStringLength.png");
 
 const [repChangeLabels, repChangeR, repChangeRE] = avgTest({maxReplaceLength: 50000, step: 5000});
 const repChart = new ChartHandler(repChangeLabels);
@@ -106,7 +106,7 @@ repChart.addChartData("Length of Replace Value replace", repChangeR);
 repChart.addChartData("Length of Replace Value replaceEach", repChangeRE);
 repChart.saveChart("./speedtest/replaceEachReplaceLength.png");
 
-/* const [srcChangeLabels, srcChangeR, srcChangeRE] = avgTest({maxSearchCount: 1000, step: 100});
+const [srcChangeLabels, srcChangeR, srcChangeRE] = avgTest({maxSearchCount: 1000, step: 100});
 const srcChart = new ChartHandler(srcChangeLabels);
 srcChart.addChartData("# of Search Values replace", srcChangeR);
 srcChart.addChartData("# of Search Values replaceEach", srcChangeRE);
@@ -122,4 +122,4 @@ const [bsrChangeLabels, bsrChangeR, bsrChangeRE] = avgTest({maxSearchCount: 100,
 const bsrChart = new ChartHandler(bsrChangeLabels);
 bsrChart.addChartData("# of Search Values and Length replace", bsrChangeR);
 bsrChart.addChartData("# of Search Values and Length replaceEach", bsrChangeRE);
-bsrChart.saveChart("./speedtest/replaceEachBothSearchLengthCount.png"); */
+bsrChart.saveChart("./speedtest/replaceEachBothSearchLengthCount.png");
