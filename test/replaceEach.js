@@ -86,7 +86,7 @@ describe("replaceEach", () => {
 	describe("behavior with function replaceValues", () => {
 		const string = "aaaaaaaabbbbbbb";
 
-		it("should match behavior of replaceAll with string input", () => {
+		it("should match behavior of replace with string input", () => {
 			const searchValues = "ab";
 			function replaceFunction (match, offset, string) {
 				return string;
