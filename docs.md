@@ -7,6 +7,9 @@
 <dt><a href="#replaceEachAll">replaceEachAll(originalString, searchValues, replaceValues)</a> ⇒ <code>string</code></dt>
 <dd><p>Replaces each occurence of a match in a string, then returns the result</p>
 </dd>
+<dt><a href="#replaceOne">replaceOne(originalString, searchValues, replaceValues)</a> ⇒ <code>string</code></dt>
+<dd><p>Replaces the first occurence of a match in a string, then returns the result</p>
+</dd>
 </dl>
 
 ## Typedefs
@@ -31,7 +34,7 @@
 Replaces each match in a string once, then returns the result
 
 **Kind**: global function  
-**Returns**: <code>string</code> - String with first match of each searchValue replaced with respective replaceValues.  
+**Returns**: <code>string</code> - String with first match of each searchValue replaced with respective replaceValues  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -45,7 +48,21 @@ Replaces each match in a string once, then returns the result
 Replaces each occurence of a match in a string, then returns the result
 
 **Kind**: global function  
-**Returns**: <code>string</code> - String with every match of each searchValue replaced with respective replaceValues.  
+**Returns**: <code>string</code> - String with every match of each searchValue replaced with respective replaceValues  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| originalString | <code>string</code> | String to search an replace |
+| searchValues | <code>Array.&lt;(string\|searchCallback\|Array.&lt;(string\|searchArrayCallback)&gt;)&gt;</code> | Array of search patterns, either a string, a callback, or an array containing a value for each character in the pattern |
+| replaceValues | <code>Array.&lt;(string\|replaceCallback)&gt;</code> | Array of values and/or callbacks(to call) to replace a match, defaults to last in the array if fewer replaceValues than searchValues |
+
+<a name="replaceOne"></a>
+
+## replaceOne(originalString, searchValues, replaceValues) ⇒ <code>string</code>
+Replaces the first occurence of a match in a string, then returns the result
+
+**Kind**: global function  
+**Returns**: <code>string</code> - String with the first match of a searchValue replaced with the respective replaceValue  
 
 | Param | Type | Description |
 | --- | --- | --- |
