@@ -60,7 +60,8 @@ const searchValues = [
     if (matcher.data_sum === undefined) {
       matcher.data_sum = 0;
     }
-    // Using the passed matcher object is a good way to store data across calls of the search function,
+    // Using the passed matcher object is a good way
+    // to store data across calls of the search function,
     // but variables should be made as unique as possible
 
     if (parsed !== NaN) {
