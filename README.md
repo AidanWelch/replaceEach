@@ -1,6 +1,6 @@
 # replaceEach
 
-Replace an array of patterns with an array of replacers.
+Replace an array of search patterns with an array of replacers.
 
 ⚠️ **Not Compatible with RegExp search!** ⚠️
 
@@ -87,7 +87,7 @@ console.log(replaceEach(originalString, searchValues, replaceValues));
 
 ### Performance
 
-replaceEach is written JS and utilizes objects for each matcher, this overhead adds cost over the natural replace and replaceAll functions, however in some situations replaceEach is still more performant than looping replace/replaceAll.
+replaceEach is written in JS and utilizes objects for finding each match, this overhead adds cost over the natural replace and replaceAll functions, however in some situations replaceEach is still more performant than looping replace/replaceAll.
 
 Increasing replaceValue Length:
 
