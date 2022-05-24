@@ -1,6 +1,6 @@
 {
   "name": "replaceeach",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A replaceEach function allowing efficient replacing of multiple searchValues in one string and/or  multiple replaceValues.",
   "main": "index.js",
   "type": "module",
